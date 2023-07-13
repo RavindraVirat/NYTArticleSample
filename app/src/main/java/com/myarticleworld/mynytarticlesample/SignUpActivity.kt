@@ -21,8 +21,6 @@ class SignUpActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
         binding.viewModel = viewModel
 
-        goToDashboardScreen()
-
         viewModel.isSignUpDataValid.observe(this) {
             if (it == "valid") goToDashboardScreen()
             else Toast.makeText(this, it, Toast.LENGTH_SHORT).show()

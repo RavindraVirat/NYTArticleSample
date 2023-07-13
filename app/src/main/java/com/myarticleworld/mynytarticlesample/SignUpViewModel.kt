@@ -1,5 +1,7 @@
 package com.myarticleworld.mynytarticlesample
 
+import android.util.Log
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,16 +23,16 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
         if (userName.isEmpty()) _isSignUpDataValid.value = "Please enter user name."
         else if (userName.length < 3) _isSignUpDataValid.value =
             "User name should be min. 3 characters long."
-        else if (isValidEmail(email)) _isSignUpDataValid.value = "Please enter valid email."
-        else if (isValidPassword(password)) _isSignUpDataValid.value =
+        else if (!isValidEmail(email)) _isSignUpDataValid.value = "Please enter valid email."
+        else if (!isValidPassword(password)) _isSignUpDataValid.value =
             "Password must contain at least 8 characters with at least 1 number, 1 uppercase & 1 special character."
         else _isSignUpDataValid.value = "valid"
     }
 
     private fun isValidEmail(email: String): Boolean {
-//        return isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        return email.matches(emailPattern.toRegex())
+        return  Patterns.EMAIL_ADDRESS.matcher(email).matches()
+//        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+"
+//        return email.matches(emailPattern.toRegex())
     }
 
     private fun isValidPassword(password: String): Boolean {
